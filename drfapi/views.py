@@ -40,7 +40,7 @@ class StudentAPIView(APIView):
     def post(self,request, *args, **kwargs):
         data = request.data
         try:
-            user = User.objects.create(username=data.name, password=data.pwd, email=data.email)
+            user = User.objects.create(username=data.get("name"), password=data.get("pwd"), email=data.get("email"))
             if user:
                 return Response({
                     "status": 200,
@@ -60,12 +60,12 @@ class StudentAPIView(APIView):
 
     def put(self, request, *args, **kwargs):
         data = request.data
-        if data.id:
+        if data.get("id"):
             user = User.objects.first(id=1)
-            user.username = data.name
-            user.gender = data.gender
-            user.password = data.password
-            user.email = data.email
+            user.username = data.get("name")
+            user.gender = data.get("gender")
+            user.password = data.get("passward")
+            user.email = data.get("email")
             return Response({
                 "status": 200,
                 "message": "创建用户成功",
